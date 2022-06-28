@@ -13,7 +13,7 @@ class FilterDate(
     private val date: String,
     private val format: Formats.Country
 ) : Filter {
-    fun invoke() =
+    fun apply() =
         when (format.code) {
             Formats.Country.USA.code -> Us.apply(date)
             Formats.Country.GERMANY.code, Formats.Country.BULGARIA.code, Formats.Country.NORWAY.code -> De.apply(date)

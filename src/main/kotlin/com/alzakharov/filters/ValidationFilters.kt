@@ -13,5 +13,5 @@ object ValidationFilters {
      * Date validator
      */
     fun date(date: String, dateFormat: Formats.Country = Formats.Country.GERMANY) =
-        FilterDate(date, dateFormat).invoke()
+        FilterDate(date, dateFormat).apply()
 }
