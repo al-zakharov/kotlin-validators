@@ -1,5 +1,7 @@
 package com.alzakharov
 
+import com.alzakharov.filters.ValidationFilters
+import com.alzakharov.formats.Formats
 import org.junit.Test
 import kotlin.test.assertTrue
 import kotlin.test.assertFalse
@@ -9,7 +11,7 @@ class FilterDateTest {
     fun testValidDateWithUsFormat() {
         val date = "3/23/2023"
         assertTrue(
-            date.validate { ValidationFilters.date().formatUs(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.USA) },
             "valid date: $date should return 'true' for US format"
         )
     }
@@ -18,7 +20,7 @@ class FilterDateTest {
     fun testInvalidDateWithUsFormat() {
         val date = "2023/23/3"
         assertFalse(
-            date.validate { ValidationFilters.date().formatUs(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.USA) },
             "invalid date: $date should return 'false' for US format"
         )
     }
@@ -27,7 +29,7 @@ class FilterDateTest {
     fun testValidDateWithUkFormat() {
         val date = "30/10/1967"
         assertTrue(
-            date.validate { ValidationFilters.date().formatUk(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.UNITED_KINGDOM) },
             "valid date: $date should return 'true' for UK format"
         )
     }
@@ -36,7 +38,7 @@ class FilterDateTest {
     fun testInvalidDateWithUkFormat() {
         val date = "1967/10/30"
         assertFalse(
-            date.validate { ValidationFilters.date().formatUk(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.UNITED_KINGDOM) },
             "invalid date: $date should return 'false' for UK format"
         )
     }
@@ -45,7 +47,7 @@ class FilterDateTest {
     fun testValidDateWithDeFormat() {
         val date = "20.11.2009"
         assertTrue(
-            date.validate { ValidationFilters.date().formatDe(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.GERMANY) },
             "valid date: $date should return 'true' for DE format"
         )
     }
@@ -54,7 +56,7 @@ class FilterDateTest {
     fun testInvalidDateWithDeFormat() {
         val date = "11.20.2009"
         assertFalse(
-            date.validate { ValidationFilters.date().formatDe(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.GERMANY) },
             "invalid date: $date should return 'false' for DE format"
         )
     }
@@ -63,7 +65,7 @@ class FilterDateTest {
     fun testValidDateWithDkFormat() {
         val date = "29-02-2004"
         assertTrue(
-            date.validate { ValidationFilters.date().formatDk(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.DENMARK) },
             "valid date: $date should return 'true' for DK format"
         )
     }
@@ -72,7 +74,7 @@ class FilterDateTest {
     fun testInvalidDateWithDkFormat() {
         val date = "02-29-2004"
         assertFalse(
-            date.validate { ValidationFilters.date().formatDk(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.DENMARK) },
             "invalid date: $date should return 'false' for DK format"
         )
     }
@@ -81,7 +83,7 @@ class FilterDateTest {
     fun testValidDateWithHkFormat() {
         val date = "2006/5/30"
         assertTrue(
-            date.validate { ValidationFilters.date().formatHk(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.HONG_KONG) },
             "valid date: $date should return 'true' for HK format"
         )
     }
@@ -90,7 +92,7 @@ class FilterDateTest {
     fun testInvalidDateWithHkFormat() {
         val date = "2006/30/5"
         assertFalse(
-            date.validate { ValidationFilters.date().formatHk(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.HONG_KONG) },
             "invalid date: $date should return 'false' for HK format"
         )
     }
@@ -99,7 +101,7 @@ class FilterDateTest {
     fun testValidDateWithCnFormat() {
         val date = "2006-5-30"
         assertTrue(
-            date.validate { ValidationFilters.date().formatHk(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.HONG_KONG) },
             "valid date: $date should return 'true' for CN format"
         )
     }
@@ -108,7 +110,7 @@ class FilterDateTest {
     fun testInvalidDateWithCnFormat() {
         val date = "2006-30-5"
         assertFalse(
-            date.validate { ValidationFilters.date().formatHk(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.HONG_KONG) },
             "invalid date: $date should return 'false' for CN format"
         )
     }
@@ -117,7 +119,7 @@ class FilterDateTest {
     fun testValidDateWithCaFormat() {
         val date = "2004-04-30"
         assertTrue(
-            date.validate { ValidationFilters.date().formatCa(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.CANADA) },
             "valid date: $date should return 'true' for CA format"
         )
     }
@@ -126,7 +128,7 @@ class FilterDateTest {
     fun testInvalidDateWithCaFormat() {
         val date = "2004-30-04"
         assertFalse(
-            date.validate { ValidationFilters.date().formatCa(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.CANADA) },
             "invalid date: $date should return 'false' for CA format"
         )
     }
@@ -135,7 +137,7 @@ class FilterDateTest {
     fun testValidDateWithHuFormat() {
         val date = "2004.04.30"
         assertTrue(
-            date.validate { ValidationFilters.date().formatCa(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.CANADA) },
             "valid date: $date should return 'true' for HU format"
         )
     }
@@ -144,7 +146,7 @@ class FilterDateTest {
     fun testInvalidDateWithHuFormat() {
         val date = "2004.30.04"
         assertFalse(
-            date.validate { ValidationFilters.date().formatCa(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.CANADA) },
             "invalid date: $date should return 'false' for HU format"
         )
     }
@@ -153,7 +155,7 @@ class FilterDateTest {
     fun testValidDateWithIso8601Format() {
         val date = "2004-07-12 14:25:59"
         assertTrue(
-            date.validate { ValidationFilters.date().formatIso8601(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.ISO_8601) },
             "valid date: $date should return 'true' for ISO 8601 format"
         )
     }
@@ -162,7 +164,7 @@ class FilterDateTest {
     fun testInvalidDateWithIso8601Format() {
         val date = "04-07-12 14:25:59"
         assertFalse(
-            date.validate { ValidationFilters.date().formatIso8601(it) },
+            date.validate { ValidationFilters.date(it, Formats.Country.ISO_8601) },
             "invalid date: $date should return 'false' for ISO 8601 format"
         )
     }
