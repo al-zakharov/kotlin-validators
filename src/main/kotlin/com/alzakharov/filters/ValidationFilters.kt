@@ -26,4 +26,10 @@ object ValidationFilters {
      */
     fun url(url: String) =
         FilterUrl(url).apply()
+
+    /**
+     * Hex color validator
+     */
+    fun hexColor(url: String) =
+        FilterHexColor(url).apply()
 }
