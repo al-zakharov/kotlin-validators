@@ -14,4 +14,10 @@ object ValidationFilters {
      */
     fun date(date: String, dateFormat: Formats.Country = Formats.Country.GERMANY) =
         FilterDate(date, dateFormat).apply()
+
+    /**
+     * IP validator
+     */
+    fun ip(ip: String, ipFormat: Formats.Ip = Formats.Ip.V4) =
+        FilterIp(ip, ipFormat).apply()
 }
