@@ -20,4 +20,10 @@ object ValidationFilters {
      */
     fun ip(ip: String, ipFormat: Formats.Ip = Formats.Ip.V4) =
         FilterIp(ip, ipFormat).apply()
+
+    /**
+     * Url validator
+     */
+    fun url(url: String) =
+        FilterUrl(url).apply()
 }
