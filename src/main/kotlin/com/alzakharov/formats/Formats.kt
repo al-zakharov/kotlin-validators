@@ -35,4 +35,14 @@ object Formats {
         HUNGARY("hu", "yyyy.mm.dd"),
         ISO_8601("iso8601", "ISO-8061"),
     }
+
+    enum class Ip(val version: String) {
+        V4("v4"),
+        V6("v6"),
+        V4_WITH_PORT("v4:port"),
+    }
+
+    enum class Password(val rule: String) {
+        SIX_CHARACTERS("six characters"),
+    }
 }
