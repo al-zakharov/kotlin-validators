@@ -41,4 +41,8 @@ object Formats {
         V6("v6"),
         V4_WITH_PORT("v4:port"),
     }
+
+    enum class Password(val rule: String) {
+        SIX_CHARACTERS("six characters"),
+    }
 }

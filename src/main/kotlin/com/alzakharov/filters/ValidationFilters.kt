@@ -30,6 +30,12 @@ object ValidationFilters {
     /**
      * Hex color validator
      */
-    fun hexColor(url: String) =
-        FilterHexColor(url).apply()
+    fun hexColor(color: String) =
+        FilterHexColor(color).apply()
+
+    /**
+     * Password validator
+     */
+    fun password(password: String, passwordFormat: Formats.Password = Formats.Password.SIX_CHARACTERS) =
+        FilterPassword(password, passwordFormat).apply()
 }
