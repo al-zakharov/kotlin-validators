@@ -23,7 +23,7 @@ ValidationFilters.hexColor()
 ValidationFilters.password()
 ```
 
-Also some rules such as date, ip, and others provide additional argument for choosing data formats, for example:
+Some rules such as date, ip, and others provide additional argument for choosing data formats, for example:
 ```
 val date = "3/23/2023"
 date.validate { ValidationFilters.date(it, Formats.Country.USA) }
