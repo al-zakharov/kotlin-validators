@@ -1,7 +1,13 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.6.20'
     id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+    id "io.codearte.nexus-staging" version "0.30.0"
 }
+
+group = 'com.alzakharov'
+version = '0.0.1'
 
 repositories {
     mavenCentral()
@@ -24,4 +30,78 @@ task ktlint(type: JavaExec, group: "verification") {
     main = "com.pinterest.ktlint.Main"
     classpath = configurations.ktlint
     args "src/**/*.kt"
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = "kotlin-validators"
+            from components.java
+            pom {
+                name = 'Kotlin validators'
+                description = "Simple data validation"
+                url = "https://github.com/al-zakharov/kotlin-validators"
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id = "al-zakharov"
+                        name = "Aleksandr Zakharov"
+                        email = "al-zakharov@gmail.com"
+                    }
+                }
+                scm {
+                    connection = "scm:https://github.com/al-zakharov/kotlin-validators.git"
+                    developerConnection = "scm:git@github.com/al-zakharov/kotlin-validators.git"
+                    url = "https://github.com/al-zakharov/kotlin-validators"
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "OSSRH"
+            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = project.properties["MAVEN_USERNAME"].toString()
+                password = project.properties["MAVEN_PASSWORD"].toString()
+            }
+        }
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/al-zakharov/kotlin-validators"
+            credentials {
+                username = project.properties["GITHUB_ACTOR"].toString()
+                password = project.properties["GITHUB_TOKEN"].toString()
+            }
+        }
+    }
+}
+
+nexusStaging {
+    serverUrl = "https://s01.oss.sonatype.org/service/local/"
+    username = project.properties["MAVEN_USERNAME"].toString()
+    password = project.properties["MAVEN_PASSWORD"].toString()
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
 }
